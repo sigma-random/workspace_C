@@ -1,0 +1,1 @@
+uid=0(root) gid=1011 组=0(root)

@@ -1,0 +1,3 @@
+0xcd2e76fa	hello_init	/root/Desktop/workspace_C/linux/Kernel/LKM/hello/hello	EXPORT_SYMBOL
+0x5f094920	hello_exit	/root/Desktop/workspace_C/linux/Kernel/LKM/hello/hello	EXPORT_SYMBOL
+0x02948553	func_test	/root/Desktop/workspace_C/linux/Kernel/LKM/hello/hello	EXPORT_SYMBOL

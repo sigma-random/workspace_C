@@ -1,0 +1,43 @@
+/*#####################################################
+#       SecretChannel - -  file access time
+#
+#       Copyright (C) 2014 random <random@pku.edu.cn>
+#
+######################################################*/
+
+
+
+[1] how to complie:
+	
+	make all     
+
+
+[2] how to run:
+
+	!!!! make sure run reciever firstly before running sender !!!!
+
+
+	1. run reciever:
+
+			./reciever  filename
+
+
+	2. run sender
+
+			./sender filename
+
+
+
+[3] something you need to know:
+
+	when you run the reciever, it will creat 8 files named from 0 to 7,
+also it will make 3 flag files, which named flag1,flag2,flag3.
+
+	you can change files dir by changing macro "BASE_DIR" in "common.h",
+	
+	you also should make sure the files in BASE_DIR will allow other users to
+access,reading at least. 
+	you can change file-mode such as follow:
+
+		chmod 755 BASE_DIR  && chmod 755 BASE_DIR/*
+

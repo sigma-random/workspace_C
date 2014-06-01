@@ -1,0 +1,74 @@
+export LD_PRELOAD="/tmp/fake.so"
+
+
+1、
+
+random@kali-i386:~/$ cat getid0.c
+#include <dlfcn.h> 
+#include <unistd.h> 
+#include <sys/types.h> 
+
+uid_t geteuid( void ) 
+{ 
+        return 0; 
+} 
+
+uid_t getuid( void ) 
+{ 
+        return 0; 
+} 
+
+uid_t getgid( void ) 
+{ 
+        return 0; 
+} 
+
+
+
+2、
+random@kali-i386:~/$ gcc -fPIC -shared  getid0.c -o getid0.so
+
+random@kali-i386:~/$ cp getid0.so /tmp/getid0.so
+
+
+3、 
+random@kali-i386:~/$  id 
+uid=1000(random) gid=1001(random) groups=1001(random)
+
+random@kali-i386:~/$  ldd /usr/bin/id 
+
+linux-gate.so.1 =>  (0xb77e0000)
+libselinux.so.1 => /lib/i386-linux-gnu/libselinux.so.1 (0xb779f000)
+libc.so.6 => /lib/i386-linux-gnu/i686/cmov/libc.so.6 (0xb763b000)
+libdl.so.2 => /lib/i386-linux-gnu/i686/cmov/libdl.so.2 (0xb7637000)
+/lib/ld-linux.so.2 (0xb77e1000)
+
+
+4、
+random@kali-i386:~/$  export LD_PRELOAD="/tmp/fake.so"
+ 
+
+5、
+random@kali-i386:~/$  ldd /usr/bin/id 
+
+linux-gate.so.1 =>  (0xb77e0000)
+/tmp/getid0.so (0xb77dc000)
+libselinux.so.1 => /lib/i386-linux-gnu/libselinux.so.1 (0xb779f000)
+libc.so.6 => /lib/i386-linux-gnu/i686/cmov/libc.so.6 (0xb763b000)
+libdl.so.2 => /lib/i386-linux-gnu/i686/cmov/libdl.so.2 (0xb7637000)
+/lib/ld-linux.so.2 (0xb77e1000)
+
+
+4、
+random@kali-i386:~/$  id 
+uid=0(root) gid=0(root) egid=1001(random) groups=0(root),1001(random)
+
+
+执行任何命令都会加载getid0.so，由于getid0.so里面对函数geteuid、getuid、getgid等进行劫持，所以
+对id执行ldd会显示加载getid0.so，/usr/bin/id会通过调用geteuid、getuid、getgid等进行用户权限的判断，但是
+已经被getid0.so劫持了，所以/usr/bin/id返回的uid是0
+
+
+但是在内核下，任然是random用户，只是欺骗了id等用户态的程序而已。
+
+

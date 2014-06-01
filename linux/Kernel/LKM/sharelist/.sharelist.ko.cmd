@@ -1,0 +1,1 @@
+cmd_/root/Desktop/workspace_C/linux/Kernel/LKM/sharelist/sharelist.ko := ld -r -m elf_i386 -T /usr/src/linux-3.5.4/scripts/module-common.lds --build-id  -o /root/Desktop/workspace_C/linux/Kernel/LKM/sharelist/sharelist.ko /root/Desktop/workspace_C/linux/Kernel/LKM/sharelist/sharelist.o /root/Desktop/workspace_C/linux/Kernel/LKM/sharelist/sharelist.mod.o

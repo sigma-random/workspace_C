@@ -1,0 +1,7 @@
+gcc -c printmsg.c -o printmsg.o
+
+ar -crs libprintmsg.a printmsg.o
+
+gcc -c hello.c -o hello.o
+
+gcc -static hello.o -o hello  -L.  -lprintmsg

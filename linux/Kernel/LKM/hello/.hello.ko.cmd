@@ -1,0 +1,1 @@
+cmd_/root/Desktop/workspace_C/linux/Kernel/LKM/hello/hello.ko := ld -r -m elf_i386 -T /usr/src/linux-headers-3.12-kali1-common/scripts/module-common.lds --build-id  -o /root/Desktop/workspace_C/linux/Kernel/LKM/hello/hello.ko /root/Desktop/workspace_C/linux/Kernel/LKM/hello/hello.o /root/Desktop/workspace_C/linux/Kernel/LKM/hello/hello.mod.o
